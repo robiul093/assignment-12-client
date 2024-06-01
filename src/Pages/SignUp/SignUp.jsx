@@ -5,7 +5,7 @@ import { AuthContext } from "../../Provider/AuthProvider";
 
 const SignUp = () => {
 
-    const {createUser, aj} = useContext(AuthContext);
+    const {createUser,} = useContext(AuthContext);
     const {
         register,
         handleSubmit,
@@ -17,7 +17,7 @@ const SignUp = () => {
           const name = data.name;
           const email = data.email;
           const password = data.password;
-          console.log(aj, name, email, password)
+          console.log( name, email, password)
 
           createUser(email, password)
           .then(res =>{
