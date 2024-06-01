@@ -2,16 +2,17 @@ import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider";
+import { FaGithub, FaGoogle } from "react-icons/fa";
 
 const Login = () => {
 
-    const {userLogin} = useContext(AuthContext);
-    
+    const { userLogin, googleLogin } = useContext(AuthContext);
+
     const {
         register,
         handleSubmit,
-        watch,
-        formState: { errors },
+        // watch,
+        // formState: { errors },
     } = useForm()
 
     const handelLogin = (data) => {
@@ -22,14 +23,26 @@ const Login = () => {
         console.log(email, password)
 
         userLogin(email, password)
+            .then(res => {
+                console.log(res.user);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+
+    }
+
+
+    const handelGoogleLogin = () =>{
+        googleLogin()
         .then(res =>{
             console.log(res.user);
         })
         .catch(err =>{
             console.log(err);
         })
-
     }
+    
 
     return (
         <div className="mt-10 card shrink-0 md:w-2/3 mx-auto shadow-2xl bg-base-100">
@@ -55,8 +68,15 @@ const Login = () => {
                 <div className="form-control mt-6">
                     <button className="btn btn-primary">Login</button>
                 </div>
-                <p className="text-center mt-5 text-lg">Do not have an account? <Link to={'/signUp'}><span className="underline">SignUp</span> </Link></p>
             </form>
+            <div className="divider px-32">OR</div>
+
+            <div>
+                <button onClick={handelGoogleLogin} className="btn px-10 ml-10"> <FaGoogle></FaGoogle> Google</button>
+                <button className="btn px-10 ml-10"> <FaGithub></FaGithub> GitHub</button>
+            </div>
+
+            <p className="text-center mt-5 text-lg">Do not have an account? <Link to={'/signUp'}><span className="underline">SignUp</span> </Link></p>
         </div>
     );
 };
