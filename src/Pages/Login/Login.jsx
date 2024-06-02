@@ -1,12 +1,13 @@
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { FaGithub, FaGoogle } from "react-icons/fa";
 
 const Login = () => {
 
-    const { userLogin, googleLogin } = useContext(AuthContext);
+    const { userLogin, googleLogin, gitHubLogin } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const {
         register,
@@ -25,6 +26,7 @@ const Login = () => {
         userLogin(email, password)
             .then(res => {
                 console.log(res.user);
+                navigate('/')
             })
             .catch(err => {
                 console.log(err);
@@ -37,6 +39,19 @@ const Login = () => {
         googleLogin()
         .then(res =>{
             console.log(res.user);
+            navigate('/')
+        })
+        .catch(err =>{
+            console.log(err);
+        })
+    }
+
+
+    const handelGitHubLogin = () =>{
+        gitHubLogin()
+        .then(res =>{
+            console.log(res.user);
+            navigate('/')
         })
         .catch(err =>{
             console.log(err);
@@ -47,7 +62,7 @@ const Login = () => {
     return (
         <div className="mt-10 card shrink-0 md:w-2/3 mx-auto shadow-2xl bg-base-100">
             <div className="text-center mt-4">
-                <h2 className="text-4xl font-semibold text-[#3C3C3C] mb-6">Sign Up</h2>
+                <h2 className="text-4xl font-semibold text-[#3C3C3C] mb-6">Login</h2>
                 <p className="text-2xl text-[#7F7F7F] font-medium mb-4">Login Your Account</p>
             </div>
             <form onSubmit={handleSubmit(handelLogin)} className="card-body">
@@ -73,7 +88,7 @@ const Login = () => {
 
             <div>
                 <button onClick={handelGoogleLogin} className="btn px-10 ml-10"> <FaGoogle></FaGoogle> Google</button>
-                <button className="btn px-10 ml-10"> <FaGithub></FaGithub> GitHub</button>
+                <button onClick={handelGitHubLogin} className="btn px-10 ml-10"> <FaGithub></FaGithub> GitHub</button>
             </div>
 
             <p className="text-center mt-5 text-lg">Do not have an account? <Link to={'/signUp'}><span className="underline">SignUp</span> </Link></p>
