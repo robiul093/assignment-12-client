@@ -1,4 +1,4 @@
-import { GithubAuthProvider, GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
+import { GithubAuthProvider, GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import { app } from "../../firebaseConfig";
 
@@ -31,6 +31,13 @@ const AuthProvider = ({ children }) => {
     }
 
 
+    const updateUser = (name) =>{
+       return updateProfile(auth.currentUser, {
+            displayName: name, photoURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-Ne7oVV6Lx9uAnmJDUZrrLcGy8yzo1sXdpQ&s"
+          })
+    }
+    
+
     const logOut = () =>{
         return signOut(auth);
     }
@@ -48,6 +55,7 @@ const AuthProvider = ({ children }) => {
         userLogin,
         googleLogin,
         gitHubLogin,
+        updateUser,
         user,
         logOut,
     }

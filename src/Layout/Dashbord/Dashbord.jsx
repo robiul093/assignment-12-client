@@ -5,6 +5,15 @@ const Dashbord = () => {
         <div className="flex">
             <div className="w-64 min-h-screen bg-slate-400">
                 <ul className="menu p-4 space-y-3">
+
+
+                    {/* admin navigationn */}
+
+                    <li className="bg-gray-400">
+                        <NavLink to='/dashbord/admin/users'>Manage Users</NavLink>
+                    </li>
+
+                    {/* surveyor navigaattion */}
                     <li className="bg-gray-400">
                         <NavLink to='/dashbord/createSurvey'>Create Survay</NavLink>
                     </li>

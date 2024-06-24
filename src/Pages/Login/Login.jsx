@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { FaGithub, FaGoogle } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 const Login = () => {
 
@@ -26,6 +27,30 @@ const Login = () => {
         userLogin(email, password)
             .then(res => {
                 console.log(res.user);
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "User Login Successful",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                const userInfo = {
+                    name: res.user.displayName,
+                    email: res.user.email,
+                    role: 'user',
+                }
+                fetch('https://assignment-12-server-lemon-delta.vercel.app/users', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(userInfo),
+                })
+                    .then(res => res.json())
+                    .then(res => {
+                        console.log('Response from server:', res);
+
+                    })
                 navigate('/')
             })
             .catch(err => {
@@ -39,6 +64,30 @@ const Login = () => {
         googleLogin()
         .then(res =>{
             console.log(res.user);
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "User Login Successful",
+                showConfirmButton: false,
+                timer: 1500
+            });
+            const userInfo = {
+                name: res.user.displayName,
+                email: res.user.email,
+                role: 'user',
+            }
+            fetch('https://assignment-12-server-lemon-delta.vercel.app/users', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userInfo),
+            })
+                .then(res => res.json())
+                .then(res => {
+                    console.log('Response from server:', res);
+
+                })
             navigate('/')
         })
         .catch(err =>{
@@ -51,7 +100,31 @@ const Login = () => {
         gitHubLogin()
         .then(res =>{
             console.log(res.user);
-            navigate('/')
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "User Login Successful",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                const userInfo = {
+                    name: res.user.displayName,
+                    email: res.user.email,
+                    role: 'user',
+                }
+                fetch('https://assignment-12-server-lemon-delta.vercel.app/users', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(userInfo),
+                })
+                    .then(res => res.json())
+                    .then(res => {
+                        console.log('Response from server:', res);
+
+                    })
+                navigate('/')
         })
         .catch(err =>{
             console.log(err);

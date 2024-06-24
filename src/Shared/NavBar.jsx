@@ -5,14 +5,14 @@ import { AuthContext } from "../Provider/AuthProvider";
 const NavBar = () => {
 
     const { user, logOut } = useContext(AuthContext);
-    const handelLogOut = () =>{
+    const handelLogOut = () => {
         logOut()
-        .then(res =>{
-            console.log(res);
-        })
-        .then(err =>{
-            console.log(err);
-        })
+            .then(res => {
+                console.log(res);
+            })
+            .then(err => {
+                console.log(err);
+            })
     }
 
     const link = <div className="text-xl font-semibold flex space-x-5">
@@ -21,7 +21,7 @@ const NavBar = () => {
         <li><Link to={"/"}>Survey Details</Link></li>
         <li><Link to={"/"}>Pricing</Link></li>
         <li><Link to={"dashbord"}>Dashbord</Link></li>
-        
+
     </div>
 
     return (
@@ -43,16 +43,28 @@ const NavBar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-            {
-            !user ? <ul className="space-x-7">
-                <Link to={"/login"}>Login</Link>
-                <Link to={"/signUp"}>SignUp</Link>
+                {
+                    user
+                        ? < div className="dropdown dropdown-hover dropdown-end mr-4">
+                            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                                <div className="">
+                                    <img className="" alt="Tailwind CSS Navbar component" src={user?.photoURL || "https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"} />
+                                </div>
+                            </div>
+                            <ul tabIndex={0} className=" z-[4] p-4 space-y-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-40">
+                                <li>
+                                    {user?.displayName}
+                                </li>
+                                <li onClick={handelLogOut} className="cursor-pointer hover:bg-gray-400 p-2 rounded-md">Logout</li>
+                            </ul>
+                        </div>
 
-            </ul> : <>
+                        : <div className="space-x-4">
+                            <Link to={'/login'}><button className="btn">Login</button></Link>
+                            <Link to={'/signUp'}><button className="btn">SignUp</button></Link>
+                        </div>
+                }
 
-                <Link onClick={handelLogOut}>LogOut</Link>
-            </>
-        }
                 {/* <a className="btn">Button</a> */}
             </div>
         </div>

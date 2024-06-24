@@ -7,6 +7,7 @@ import Dashbord from "../Layout/Dashbord/Dashbord";
 import CreateSurvey from "../Pages/Dashbord/CreateSurvey";
 import SurveyUpdate from "../Pages/Dashbord/SurveyUpdate";
 import UpdateForm from "../Pages/Dashbord/UpdateForm";
+import ManageUsers from "../Pages/Dashbord/ManageUsers";
 
 
 export const router = createBrowserRouter([
@@ -35,6 +36,14 @@ export const router = createBrowserRouter([
       element: <Dashbord></Dashbord>,
       children: [
 
+        // admin routs
+        {
+          path: "admin/users",
+          element: <ManageUsers></ManageUsers>
+        },
+        
+        
+        // surveyor routes
         {
           path: "createSurvey",
           element: <CreateSurvey></CreateSurvey>

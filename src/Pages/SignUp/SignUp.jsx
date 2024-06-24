@@ -3,10 +3,11 @@ import { useForm } from "react-hook-form";
 import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { FaGithub, FaGoogle } from "react-icons/fa6";
+import Swal from "sweetalert2";
 
 const SignUp = () => {
 
-    const { createUser, googleLogin, gitHubLogin } = useContext(AuthContext);
+    const { createUser, googleLogin, gitHubLogin, updateUser } = useContext(AuthContext);
     const navigate = useNavigate();
     const {
         register,
@@ -24,6 +25,72 @@ const SignUp = () => {
         createUser(email, password)
             .then(res => {
                 console.log(res.user);
+
+                return updateUser(name)
+            })
+            .then(() => {
+                const userInfo = {
+                    name: name,
+                    email: email,
+                    role: 'user',
+                }
+                fetch('https://assignment-12-server-lemon-delta.vercel.app/users', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(userInfo),
+                })
+                    .then(res => res.json())
+                    .then(res => {
+                        console.log('Response from server:', res);
+                        if (res.insertedId) {
+                            Swal.fire({
+                                position: "top-end",
+                                icon: "success",
+                                title: "User Create Successfully",
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                            navigate('/')
+                        }
+                    })
+
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+
+
+    const handelGoogleLogin = () => {
+        googleLogin()
+            .then(res => {
+                console.log(res.user);
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "User Login Successful",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                const userInfo = {
+                    name: res.user.displayName,
+                    email: res.user.email,
+                    role: 'user',
+                }
+                fetch('https://assignment-12-server-lemon-delta.vercel.app/users', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(userInfo),
+                })
+                    .then(res => res.json())
+                    .then(res => {
+                        console.log('Response from server:', res);
+
+                    })
                 navigate('/')
             })
             .catch(err => {
@@ -32,27 +99,39 @@ const SignUp = () => {
     }
 
 
-    const handelGoogleLogin = () =>{
-        googleLogin()
-        .then(res =>{
-            console.log(res.user);
-            navigate('/')
-        })
-        .catch(err =>{
-            console.log(err);
-        })
-    }
-
-
-    const handelGitHubLogin = () =>{
+    const handelGitHubLogin = () => {
         gitHubLogin()
-        .then(res =>{
-            console.log(res.user);
-            navigate('/')
-        })
-        .catch(err =>{
-            console.log(err);
-        })
+            .then(res => {
+                console.log(res.user);
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "User Login Successful",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                const userInfo = {
+                    name: res.user.displayName,
+                    email: res.user.email,
+                    role: 'user',
+                }
+                fetch('https://assignment-12-server-lemon-delta.vercel.app/users', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(userInfo),
+                })
+                    .then(res => res.json())
+                    .then(res => {
+                        console.log('Response from server:', res);
+
+                    })
+                navigate('/')
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
 
 
@@ -99,7 +178,7 @@ const SignUp = () => {
             </form>
 
             <div className="divider px-32">OR</div>
-            
+
             <div>
                 <button onClick={handelGoogleLogin} className="btn px-6 ml-10"> <FaGoogle></FaGoogle> Google</button>
                 <button onClick={handelGitHubLogin} className="btn px-6 ml-10"> <FaGithub></FaGithub> GitHub</button>

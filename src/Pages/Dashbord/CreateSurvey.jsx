@@ -1,9 +1,13 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import { AuthContext } from "../../Provider/AuthProvider";
 
 const CreateSurvey = () => {
 
     const [currentDate, setCurrentDate] = useState('');
+    const {user} = useContext(AuthContext);
+    const userEmail = user?.email
+    console.log(userEmail);
 
     useEffect(() => {
         // Get the current date in YYYY-MM-DD format
@@ -50,12 +54,12 @@ const CreateSurvey = () => {
 
 
         
-        const surveyData = {title, category, description, status, creationDate, deadline, question};
+        const surveyData = {title, category, description, status, creationDate, deadline, question, userEmail};
 
 
         console.log(surveyData);
         
-        fetch('http://localhost:5000/createSurvey',{
+        fetch('https://assignment-12-server-lemon-delta.vercel.app/createSurvey',{
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
