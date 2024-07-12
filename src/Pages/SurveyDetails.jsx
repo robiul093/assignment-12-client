@@ -1,16 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
-import UpdateCard from "./UpdateCard";
+import DetailsCard from "./DetailsCard";
 
-const SurveyUpdate = () => {
+const SurveyDetails = () => {
 
-    const { isPending, data: survey } = useQuery({
+    const { isPending, refetch, data } = useQuery({
         queryKey: ['survey'],
         queryFn: async () => {
             const res = await fetch('http://localhost:5000/survey');
             return res.json();
         }
     })
-
+    
     if (isPending) {
         return <div className="h-full flex justify-center items-center">
             <span className="loading loading-bars loading-sm"></span>
@@ -18,21 +18,21 @@ const SurveyUpdate = () => {
             <span className="loading loading-bars loading-lg"></span>
         </div>
     }
-
+    
     return (
         <div>
-            survey: {survey.length}
+            <h2>Survey Details : {data?.length} </h2>            
 
-            <div className="md:grid grid-cols-3 gap-5">
+            <div className="md:grid grid-cols md:p-12 gap-5">
                 {
-                    survey.map(item => <UpdateCard
-                    key={item._id}
-                    item={item}
-                    ></UpdateCard>)
+                    data?.map(item => <DetailsCard
+                        key={item._id}
+                        item={item}
+                    ></DetailsCard>)
                 }
             </div>
         </div>
     );
 };
 
-export default SurveyUpdate;
+export default SurveyDetails;

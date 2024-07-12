@@ -17,8 +17,8 @@ const NavBar = () => {
 
     const link = <div className="text-xl font-semibold flex space-x-5">
         <li><Link to={"/"}>Home</Link></li>
-        <li><Link to={"/"}>Surveys</Link></li>
-        <li><Link to={"/"}>Survey Details</Link></li>
+        <li><Link to={"/allSurvey"}>Surveys</Link></li>
+        <li><Link to={"/surveyDetails"}>Survey Details</Link></li>
         <li><Link to={"/"}>Pricing</Link></li>
         <li><Link to={"dashbord"}>Dashbord</Link></li>
 
@@ -47,7 +47,8 @@ const NavBar = () => {
                     user
                         ? < div className="dropdown dropdown-hover dropdown-end mr-4">
                             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                                <div className="">
+                                <div className="
+                                ">
                                     <img className="" alt="Tailwind CSS Navbar component" src={user?.photoURL || "https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"} />
                                 </div>
                             </div>

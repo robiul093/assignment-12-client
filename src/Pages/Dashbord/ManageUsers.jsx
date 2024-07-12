@@ -7,7 +7,7 @@ const ManageUsers = () => {
     // const [allUsers, setAllUsers] = useState();
 
     // useEffect(() =>{
-    //     fetch('https://assignment-12-server-lemon-delta.vercel.app/allUsers')
+    //     fetch('http://localhost:5000/allUsers')
     //     .then(res => res.json())
     //     .then(data => {
     //         console.log(data);
@@ -22,7 +22,7 @@ const ManageUsers = () => {
     const { isPending, refetch, data: allUsers } = useQuery({
         queryKey: ['survey'],
         queryFn: async () => {
-            const res = await fetch('https://assignment-12-server-lemon-delta.vercel.app/allUsers');
+            const res = await fetch('http://localhost:5000/allUsers');
             return res.json();
         }
     })
@@ -31,20 +31,14 @@ const ManageUsers = () => {
         setDesplayUser(allUsers)
     },[allUsers])
 
-    if (isPending) {
-        return <div className="h-full flex justify-center items-center">
-            <span className="loading loading-bars loading-sm"></span>
-            <span className="loading loading-bars loading-md"></span>
-            <span className="loading loading-bars loading-lg"></span>
-        </div>
-    }
+    
 
     const handelUserRole = (userRole, id) => {
         const updateData = {
             role: userRole
         }
         console.log(userRole, id, updateData);
-        fetch(`https://assignment-12-server-lemon-delta.vercel.app/userRole/${id}`, {
+        fetch(`http://localhost:5000/userRole/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

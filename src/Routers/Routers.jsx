@@ -8,6 +8,8 @@ import CreateSurvey from "../Pages/Dashbord/CreateSurvey";
 import SurveyUpdate from "../Pages/Dashbord/SurveyUpdate";
 import UpdateForm from "../Pages/Dashbord/UpdateForm";
 import ManageUsers from "../Pages/Dashbord/ManageUsers";
+import AllSurvey from "../Pages/AllSurvey";
+import SurveyDetails from "../Pages/SurveyDetails";
 
 
 export const router = createBrowserRouter([
@@ -19,6 +21,14 @@ export const router = createBrowserRouter([
         {
             path: "/",
             element: <Home></Home>
+        },
+        {
+          path: "allSurvey",
+          element: <AllSurvey></AllSurvey>
+        },
+        {
+          path: "surveyDetails",
+          element: <SurveyDetails></SurveyDetails>
         },
         {
             path: "/login",

@@ -1,12 +1,12 @@
 
 import { Link } from "react-router-dom";
-import surrveybg from "../../assets/surveyBg.png";
+import surrveybg from "../assets/surveyBg.png";
 
-const UpdateCard = ({item}) => {
-    console.log(item);
-    const {_id, title, category, deadline} = item;
+const AllSurveyCard = ({item}) => {
+    // console.log(item);
+    const {_id, description, title, category,} = item;
     return (
-        <div className="card bg-base-100 image-full shadow-xl">
+        <div className="card bg-base-100 image-full shadow-xl z-0">
             <figure>
                 <img
                     src={surrveybg}
@@ -14,8 +14,9 @@ const UpdateCard = ({item}) => {
             </figure>
             <div className="card-body">
                 <h2 className="card-title">Title : {title}</h2>
+                <p>Description : {description}</p>
                 <p>Category : {category}</p>
-                <p>Deadline : {deadline}</p>
+                {/* <p>Deadline : {deadline}</p> */}
                 <div className="card-actions justify-end">
                     <Link to={`
                         updateForm/${_id}`} className="btn btn-primary">Update</Link>
@@ -25,4 +26,4 @@ const UpdateCard = ({item}) => {
     );
 };
 
-export default UpdateCard;
+export default AllSurveyCard;

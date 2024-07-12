@@ -9,7 +9,7 @@ const UpdateForm = () => {
     const { isPending, data: survey } = useQuery({
         queryKey: ['survey'],
         queryFn: async () => {
-            const res = await fetch('https://assignment-12-server-lemon-delta.vercel.app/survey');
+            const res = await fetch('http://localhost:5000/survey');
             return res.json();
         }
     })
@@ -33,7 +33,7 @@ const UpdateForm = () => {
 
         console.log(surveyData);
 
-        fetch(`https://assignment-12-server-lemon-delta.vercel.app/updateSurvey/${id}`, {
+        fetch(`http://localhost:5000/updateSurvey/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

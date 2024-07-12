@@ -9,11 +9,19 @@ const Dashbord = () => {
 
                     {/* admin navigationn */}
 
+                    <p className="text-lg">Admin Route</p>
+                    <div className="divider"></div>
+
                     <li className="bg-gray-400">
                         <NavLink to='/dashbord/admin/users'>Manage Users</NavLink>
                     </li>
+                    <div className="divider">----</div>
 
                     {/* surveyor navigaattion */}
+
+                    <p className="text-lg">Surveyor Route</p>
+                    <div className="divider"></div>
+                    
                     <li className="bg-gray-400">
                         <NavLink to='/dashbord/createSurvey'>Create Survay</NavLink>
                     </li>

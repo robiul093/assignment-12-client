@@ -40,14 +40,26 @@ const CreateSurvey = () => {
             question_1 :{
                 questionNo1 : form.questionNo1.value,
                 question1 : form.question1.value,
+                question1Ans :{
+                    yes : 0,
+                    no : 0,
+                }
             },
             question_2 :{
                 questionNo2 : form.questionNo2.value,
                 question2 : form.question2.value,
+                question2Ans :{
+                    yes : 0,
+                    no : 0,
+                }
             },
             question_3 :{
                 questionNo3 : form.questionNo3.value,
                 question3 : form.question3.value,
+                question3Ans :{
+                    yes : 0,
+                    no : 0,
+                }
             }
         }
 
@@ -59,7 +71,7 @@ const CreateSurvey = () => {
 
         console.log(surveyData);
         
-        fetch('https://assignment-12-server-lemon-delta.vercel.app/createSurvey',{
+        fetch('http://localhost:5000/createSurvey',{
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -77,6 +89,7 @@ const CreateSurvey = () => {
                     showConfirmButton: false,
                     timer: 1500
                   });
+                  form.reset();
             }
           })
     }
