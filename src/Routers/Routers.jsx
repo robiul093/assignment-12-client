@@ -10,6 +10,9 @@ import UpdateForm from "../Pages/Dashbord/UpdateForm";
 import ManageUsers from "../Pages/Dashbord/ManageUsers";
 import AllSurvey from "../Pages/AllSurvey";
 import SurveyDetails from "../Pages/SurveyDetails";
+import ManageSurveyStatus from "../Pages/Dashbord/ManageSurveyStatus";
+import DetailsExplore from "../Pages/DetailsExplore";
+import Payment from "../Pages/Payment";
 
 
 export const router = createBrowserRouter([
@@ -23,12 +26,20 @@ export const router = createBrowserRouter([
             element: <Home></Home>
         },
         {
-          path: "allSurvey",
+          path: "/allSurvey",
           element: <AllSurvey></AllSurvey>
         },
         {
-          path: "surveyDetails",
+          path: "/surveyDetails",
           element: <SurveyDetails></SurveyDetails>
+        },
+        {
+          path: "/surveyDetailsExplore/:id",
+          element: <DetailsExplore></DetailsExplore>
+        },
+        {
+          path: "/payment",
+          element: <Payment></Payment>,
         },
         {
             path: "/login",
@@ -47,11 +58,16 @@ export const router = createBrowserRouter([
       children: [
 
         // admin routs
+        
         {
           path: "admin/users",
           element: <ManageUsers></ManageUsers>
         },
         
+        {
+          path: "admin/users/surveys",
+          element: <ManageSurveyStatus></ManageSurveyStatus>
+        },
         
         // surveyor routes
         {
@@ -63,7 +79,7 @@ export const router = createBrowserRouter([
           element: <SurveyUpdate></SurveyUpdate>,
         },
         {
-          path: "surveyUpdate/updateForm/:id",
+          path: "surveyor/updateForm/:id",
           element: <UpdateForm></UpdateForm>,
         }
       ]

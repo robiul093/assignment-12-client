@@ -5,13 +5,16 @@ import { AuthContext } from "../../Provider/AuthProvider";
 const CreateSurvey = () => {
 
     const [currentDate, setCurrentDate] = useState('');
+    const [currentDateForSort, setCurrentDateForSort] = useState('');
     const {user} = useContext(AuthContext);
     const userEmail = user?.email
-    console.log(userEmail);
+    // console.log(userEmail);
 
     useEffect(() => {
         // Get the current date in YYYY-MM-DD format
         const today = new Date();
+        setCurrentDateForSort(today)
+        
         const yyyy = today.getFullYear();
         const mm = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-based
         const dd = String(today.getDate()).padStart(2, '0');
@@ -30,6 +33,7 @@ const CreateSurvey = () => {
         const description = form.description.value;
         const creationDate = currentDate;
         const deadline = form.deadline.value;
+        const fullDate = currentDateForSort;
         // const question1 = form.question1.value;
         // const question2 = form.question2.value;
         // const question3 = form.question3.value;
@@ -63,10 +67,12 @@ const CreateSurvey = () => {
             }
         }
 
+        const totalVote = 0;
+
 
 
         
-        const surveyData = {title, category, description, status, creationDate, deadline, question, userEmail};
+        const surveyData = {title, category, description, status, fullDate, creationDate, deadline, question, totalVote, userEmail};
 
 
         console.log(surveyData);

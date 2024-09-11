@@ -6,7 +6,7 @@ const UpdateForm = () => {
 
     const {id} = useParams()
 
-    const { isPending, data: survey } = useQuery({
+    const { data: survey } = useQuery({
         queryKey: ['survey'],
         queryFn: async () => {
             const res = await fetch('http://localhost:5000/survey');

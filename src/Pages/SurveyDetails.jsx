@@ -1,15 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
 import DetailsCard from "./DetailsCard";
+import useSurvey from "../hooks/useSurvey";
+import DetailsExplore from "./DetailsExplore";
 
 const SurveyDetails = () => {
 
-    const { isPending, refetch, data } = useQuery({
-        queryKey: ['survey'],
-        queryFn: async () => {
-            const res = await fetch('http://localhost:5000/survey');
-            return res.json();
-        }
-    })
+
+    const {isPending, data} = useSurvey();
+    
+    // const { isPending, refetch, data } = useQuery({
+    //     queryKey: ['survey'],
+    //     queryFn: async () => {
+    //         const res = await fetch('http://localhost:5000/survey');
+    //         return res.json();
+    //     }
+    // })
     
     if (isPending) {
         return <div className="h-full flex justify-center items-center">
@@ -24,6 +29,12 @@ const SurveyDetails = () => {
             <h2>Survey Details : {data?.length} </h2>            
 
             <div className="md:grid grid-cols md:p-12 gap-5">
+                {/* {
+                    data?.map(item => <DetailsExplore
+                        key={item._id}
+                        item={item}
+                    ></DetailsExplore>)
+                } */}
                 {
                     data?.map(item => <DetailsCard
                         key={item._id}

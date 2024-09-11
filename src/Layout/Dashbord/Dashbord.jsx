@@ -15,6 +15,12 @@ const Dashbord = () => {
                     <li className="bg-gray-400">
                         <NavLink to='/dashbord/admin/users'>Manage Users</NavLink>
                     </li>
+
+                    <li className="bg-gray-400">
+                        <NavLink to='/dashbord/admin/surveys'>Manage Survey</NavLink>
+                    </li>
+
+
                     <div className="divider">----</div>
 
                     {/* surveyor navigaattion */}
@@ -30,7 +36,10 @@ const Dashbord = () => {
                         <NavLink to='/dashbord/surveyUpdate'>Update Survey</NavLink>
                     </li>
 
+
                     <div className="divider">or</div>
+
+
                     {/* user nevigat */}
                     <li className="bg-gray-500 rounded-lg text-white">
                         <NavLink to='/'>Hmoe</NavLink>

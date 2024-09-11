@@ -9,7 +9,7 @@ import { HiArrowCircleLeft, HiArrowCircleRight } from "react-icons/hi";
 
 const HowItWork = () => {
     return (
-        <div className="my-12">
+        <div className="my-16">
             <div className="text-center w-[700px] mx-auto space-y-3">
                 <h2 className="text-3xl font-bold">How It Works</h2>
                 <p className="text-xl text-gray-500">Find, book, and pay for services effortlessly. Browse various categories, view profiles and reviews, and enjoy secure payments, real-time tracking, and responsive customer support for a seamless service experience.</p>

@@ -16,17 +16,20 @@ const SignUp = () => {
         // formState: { errors },
     } = useForm()
 
+
+    // create user by email & password
     const handelSinUp = (data) => {
         const name = data.name;
+        const imageURL = data.imageURL;
         const email = data.email;
         const password = data.password;
-        console.log(name, email, password)
+        console.log(name, imageURL, email, password)
 
         createUser(email, password)
             .then(res => {
                 console.log(res.user);
 
-                return updateUser(name)
+                return updateUser(name, imageURL)
             })
             .then(() => {
                 const userInfo = {
@@ -63,6 +66,7 @@ const SignUp = () => {
     }
 
 
+    // google signup
     const handelGoogleLogin = () => {
         googleLogin()
             .then(res => {
@@ -99,6 +103,7 @@ const SignUp = () => {
     }
 
 
+    // gitHub signup
     const handelGitHubLogin = () => {
         gitHubLogin()
             .then(res => {
@@ -151,18 +156,21 @@ const SignUp = () => {
                     </label>
                     <input type="text" {...register("name", { required: true })} placeholder="Your Name" className="input input-bordered" required />
                 </div>
-                {/* <div className="form-control">
-                            <label className="label">
-                                <span className="label-text">ImageURL</span>
-                            </label>
-                            <input type="text" {...register("imageURL", { required: true })} placeholder="ImageURL" className="input input-bordered" required />
-                        </div> */}
+
+                <div className="form-control">
+                    <label className="label">
+                        <span className="label-text">ImageURL</span>
+                    </label>
+                    <input type="text" {...register("imageURL", { required: true })} placeholder="ImageURL" className="input input-bordered" required />
+                </div>
+
                 <div className="form-control">
                     <label className="label">
                         <span className="label-text">Email</span>
                     </label>
                     <input type="email" {...register("email", { required: true })} placeholder="email" className="input input-bordered" required />
                 </div>
+
                 <div className="form-control">
                     <label className="label">
                         <span className="label-text">Password</span>

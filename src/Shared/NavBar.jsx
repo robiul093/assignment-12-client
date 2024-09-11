@@ -14,12 +14,14 @@ const NavBar = () => {
                 console.log(err);
             })
     }
+    // console.log(user);
+    
 
     const link = <div className="text-xl font-semibold flex space-x-5">
         <li><Link to={"/"}>Home</Link></li>
         <li><Link to={"/allSurvey"}>Surveys</Link></li>
         <li><Link to={"/surveyDetails"}>Survey Details</Link></li>
-        <li><Link to={"/"}>Pricing</Link></li>
+        <li><Link to={"/payment"}>Pricing</Link></li>
         <li><Link to={"dashbord"}>Dashbord</Link></li>
 
     </div>
@@ -49,7 +51,7 @@ const NavBar = () => {
                             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                                 <div className="
                                 ">
-                                    <img className="" alt="Tailwind CSS Navbar component" src={user?.photoURL || "https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"} />
+                                    <img className="text-lg" alt="Tailwind CSS Navbar component" src={user?.photoURL || "https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"} />
                                 </div>
                             </div>
                             <ul tabIndex={0} className=" z-[4] p-4 space-y-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-40">

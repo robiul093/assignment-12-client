@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import useUser from "../../hooks/useUser";
 
 const ManageUsers = () => {
 
@@ -17,20 +18,32 @@ const ManageUsers = () => {
 
 
     const [displayUser, setDesplayUser] = useState();
-    const [Users, setUsers] = useState();
+    const [role, setRole] = useState();
 
-    const { isPending, refetch, data: allUsers } = useQuery({
-        queryKey: ['survey'],
-        queryFn: async () => {
-            const res = await fetch('http://localhost:5000/allUsers');
-            return res.json();
-        }
-    })
+    const {isPending, refetch, data: allUsers} = useUser();
+    
+    
+    // const { isPending, refetch, data: allUsers } = useQuery({
+    //     queryKey: ['survey'],
+    //     queryFn: async () => {
+    //         const res = await fetch('http://localhost:5000/allUsers');
+    //         return res.json();
+    //     }
+    // })
 
     useEffect(() =>{
         setDesplayUser(allUsers)
+        setRole('All User')
     },[allUsers])
 
+
+    if (isPending) {
+        return <div className="h-full flex justify-center items-center">
+            <span className="loading loading-bars loading-sm"></span>
+            <span className="loading loading-bars loading-md"></span>
+            <span className="loading loading-bars loading-lg"></span>
+        </div>
+    }
     
 
     const handelUserRole = (userRole, id) => {
@@ -57,35 +70,115 @@ const ManageUsers = () => {
                         timer: 1500
                     });
                 }
-                refetch();
+
+                refetch()
+                
             })
+    }
+
+
+
+    const handelDeleteUser = (id) =>{
+        console.log(id);
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+          }).then((result) => {
+            if (result.isConfirmed) {
+
+                fetch(`http://localhost:5000/deletUser/${id}`, {
+                    method: 'DELETE',
+                    header: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    if (data.deletedCount) {
+                        Swal.fire({
+                            position: "top-end",
+                            icon: "success",
+                            title: "Delete User Successfully",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+
+                        refetch();
+                    }
+                    
+                })
+                
+            }
+          });
+        
+        // fetch(`http://localhost:5000/deletUser/${id}`, {
+        //     method: 'DELETE',
+        //     header: {
+        //         'Content-Type': 'application/json',
+        //     },
+        // })
+        // .then(res => res.json())
+        // .then(data => {
+        //     console.log(data);
+        //     if (data.deletedCount) {
+        //         Swal.fire({
+        //             position: "top-end",
+        //             icon: "success",
+        //             title: "Update User Role Successfully",
+        //             showConfirmButton: false,
+        //             timer: 1500
+        //         });
+        //     }
+            
+        // })
+        
     }
 
 
     const handelAll = () => {
         // const us = allUsers?.filter(item => item.role === 'admin')
         setDesplayUser(allUsers);
+        setRole('All User')
         console.log(displayUser);
     }
 
     const handelAdmin = () => {
         const us = allUsers?.filter(item => item.role === 'admin')
         setDesplayUser(us)
+        setRole('Admin')
         console.log(displayUser);
     }
 
     const handelSurveyor = () => {
         const us = allUsers?.filter(item => item.role === 'surveyor')
         setDesplayUser(us)
+        setRole('Surveyor')
         console.log(displayUser);
     }
 
     const handelUser = () => {
         const us = allUsers?.filter(item => item.role === 'user')
         setDesplayUser(us)
+        setRole('User')
         console.log(displayUser);
     }
 
+
+    
+
+    // console.log();
+
+    // useEffect(() =>{
+    //     const role = displayUser?.map(user => user.role )
+    //     console.log(role);
+    // },[displayUser])
 
 
     return (
@@ -93,7 +186,7 @@ const ManageUsers = () => {
             <h2 className="text-3xl font-semibold my-8">All Users : {allUsers?.length} </h2>
 
             <div className="dropdown dropdown-hover">
-                <div tabIndex={0} role="button" className="btn m-1 mb-5">Filter By Role</div>
+                <div tabIndex={0} role="button" className="btn m-1 mb-5">Filter By Role : {role && role} ({displayUser?.length}) </div>
                 <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[4] w-52 p-2 shadow text-lg space-y-2 text-center cursor-pointer">
                     <li onClick={() => handelAll()}
                         className="hover:bg-slate-400">All</li>
@@ -119,6 +212,7 @@ const ManageUsers = () => {
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Role</th>
+                                <th>Delete User</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -142,6 +236,12 @@ const ManageUsers = () => {
                                                 <li onClick={() => handelUserRole('user', user._id)}><a>{user.role !== 'user' && 'User'}</a></li>
                                             </ul>
                                         </div> </td>
+
+                                        <td>
+                                            <button onClick={() =>handelDeleteUser(user._id)} className="btn">
+                                                Delete
+                                            </button>
+                                        </td>
                                 </tr>)
                             }
 

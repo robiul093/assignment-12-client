@@ -31,9 +31,9 @@ const AuthProvider = ({ children }) => {
     }
 
 
-    const updateUser = (name) =>{
+    const updateUser = (name, imageURL) =>{
        return updateProfile(auth.currentUser, {
-            displayName: name, photoURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-Ne7oVV6Lx9uAnmJDUZrrLcGy8yzo1sXdpQ&s"
+            displayName: name, photoURL: imageURL || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-Ne7oVV6Lx9uAnmJDUZrrLcGy8yzo1sXdpQ&s"
           })
     }
     

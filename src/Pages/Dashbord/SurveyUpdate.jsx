@@ -23,7 +23,7 @@ const SurveyUpdate = () => {
         <div>
             survey: {survey.length}
 
-            <div className="md:grid grid-cols-3 gap-5">
+            <div className="md:grid grid-cols-2 gap-5">
                 {
                     survey.map(item => <UpdateCard
                     key={item._id}
