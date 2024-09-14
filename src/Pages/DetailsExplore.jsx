@@ -1,6 +1,6 @@
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import surrveybg from "../assets/surveyBg.png";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import useSurvey from "../hooks/useSurvey";
 import Swal from "sweetalert2";
 import useUser from "../hooks/useUser";
@@ -8,7 +8,9 @@ import { AuthContext } from "../Provider/AuthProvider";
 
 const DetailsExplore = () => {
 
+    const [comment, setComment] = useState('');
     const [activeItemId, setActiveItemId] = useState(null);
+    const [commentField, setCommentField] = useState(false);
     const { isPending, refetch, data } = useSurvey();
     const { data: dbUser } = useUser();
     const { user } = useContext(AuthContext)
@@ -20,7 +22,21 @@ const DetailsExplore = () => {
     const isExistDb = dbUser?.find(item => item.email === logedUserEmail);
     const dbUserRole = isExistDb?.role
 
-    console.log(user, logedUserEmail, dbUser, isExistDb, dbUserRole);
+
+    useEffect(() => {
+        if(dbUserRole === 'proUser'){
+            setCommentField(true)
+            console.log('truee');
+            
+        }
+        else{
+            setCommentField(false)
+            console.log('faalsse');
+        }
+    }, [dbUserRole])
+
+    console.log(dbUserRole, commentField)
+    // console.log(user, logedUserEmail, dbUser, isExistDb, dbUserRole);
     if (isPending) {
         return (
             <div className="h-full flex justify-center items-center">
@@ -98,8 +114,7 @@ const DetailsExplore = () => {
     }
 
     // report survey
-
-    const reportedUserData = {
+    const userData = {
         name: user?.displayName,
         email: user?.email,
     }
@@ -121,7 +136,7 @@ const DetailsExplore = () => {
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(reportedUserData)
+                    body: JSON.stringify(userData)
                 })
                     .then(res => res.json())
                     .then(data => {
@@ -153,6 +168,44 @@ const DetailsExplore = () => {
 
             }
         });
+    }
+
+
+    // comment on survey
+
+
+    const handelTextChange = (e) => {
+        setComment(e.target.value)
+    }
+
+    const handelComment = () => {
+        const userComment = comment;
+        const data = { ...userData, userComment }
+        console.log(userComment, data);
+
+        fetch(`http://localhost:5000/comment/${_id}`, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                if (data.modifiedCount) {
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Comment Added Successfully",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    refetch();
+                }
+            })
+            .catch(error => console.log(error))
+
     }
 
 
@@ -272,11 +325,35 @@ const DetailsExplore = () => {
                         </button>
                     </div>
 
+                    {
+                        commentField && <div className="flex items-center gap-2">
+                            <textarea onChange={handelTextChange} className="border-2 rounded-lg border-gray-400" name="comment" id="myTextArea" cols="20" rows="2"></textarea>
+                            <input onClick={handelComment} className="bg-slate-500 px-2 py-3 rounded-xl" type="submit" value="Comment" />
+                        </div>
+                    }
+
                     <button disabled={dbUserRole !== 'user' && dbUserRole !== "proUser"}
                         className="btn"
                         onClick={() => handelReport()}
                     >Report</button>
                 </div>
+
+
+                {/* comment section */}
+
+                <div className="my-5">
+                    {
+                        survey?.comment?.map((item, index) => <div key={index}
+                            className="my-10">
+                            <div className="flex md:gap-32 mb-2 items-center">
+                                <h2 className="text-2xl font-medium"> {item.name} </h2>
+                                <p className="text-xl font-medium"> {item?.commentDate} </p>
+                            </div>
+                            <p className="text-2xl font-medium ml-3 bg-slate-600 p-3 rounded-r-full rounded-bl-full inline-block"> {item?.userComment} </p>
+                        </div>)
+                    }
+                </div>
+
 
                 {
                     activeItemId == _id && (
