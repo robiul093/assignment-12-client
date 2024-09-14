@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
+import { FaCrown } from "react-icons/fa";
 
 const NavBar = () => {
 
@@ -21,7 +22,7 @@ const NavBar = () => {
         <li><Link to={"/"}>Home</Link></li>
         <li><Link to={"/allSurvey"}>Surveys</Link></li>
         <li><Link to={"/surveyDetails"}>Survey Details</Link></li>
-        <li><Link to={"/payment"}>Pricing</Link></li>
+        <li><Link to={"/payment"}>Be a Pro user <FaCrown className="text-yellow-500 text-3xl" /> </Link></li>
         <li><Link to={"dashbord"}>Dashbord</Link></li>
 
     </div>

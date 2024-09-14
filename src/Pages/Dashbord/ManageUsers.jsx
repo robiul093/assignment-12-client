@@ -46,12 +46,12 @@ const ManageUsers = () => {
     }
     
 
-    const handelUserRole = (userRole, id) => {
+    const handelUserRole = (userRole, email) => {
         const updateData = {
             role: userRole
         }
-        console.log(userRole, id, updateData);
-        fetch(`http://localhost:5000/userRole/${id}`, {
+        console.log(userRole, email, updateData);
+        fetch(`http://localhost:5000/userRole/${email}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -169,6 +169,12 @@ const ManageUsers = () => {
         setRole('User')
         console.log(displayUser);
     }
+    const handelProUser = () => {
+        const us = allUsers?.filter(item => item.role === 'proUser')
+        setDesplayUser(us)
+        setRole('proUser')
+        console.log(displayUser);
+    }
 
 
     
@@ -198,7 +204,10 @@ const ManageUsers = () => {
 
                     <li onClick={() => handelUser()}
                         className="hover:bg-slate-400">User</li>
-                    {/* <li>Pro user</li> */}
+                    
+                    <li onClick={() => handelProUser()}
+                        className="hover:bg-slate-400">Pro User</li>
+                    
                 </ul>
             </div>
 
@@ -229,11 +238,13 @@ const ManageUsers = () => {
                                             <div tabIndex={0} role="button" className="btn m-1">{user.role}</div>
                                             <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[4] w-52 p-2 shadow">
 
-                                                <li onClick={() => handelUserRole('surveyor', user._id)}><a>{user.role !== 'surveyor' && 'Surveyor'}</a></li>
+                                                <li onClick={() => handelUserRole('surveyor', user.email)}><a>{user.role !== 'surveyor' && 'Surveyor'}</a></li>
 
-                                                <li onClick={() => handelUserRole('admin', user._id)}><a>{user.role !== 'admin' && 'Admin'}</a></li>
+                                                <li onClick={() => handelUserRole('admin', user.email)}><a>{user.role !== 'admin' && 'Admin'}</a></li>
 
-                                                <li onClick={() => handelUserRole('user', user._id)}><a>{user.role !== 'user' && 'User'}</a></li>
+                                                <li onClick={() => handelUserRole('user', user.email)}><a>{user.role !== 'user' && 'User'}</a></li>
+
+                                                <li onClick={() => handelUserRole('proUser', user.email)}><a>{user.role !== 'proUser' && 'proUser'}</a></li>
                                             </ul>
                                         </div> </td>
 
