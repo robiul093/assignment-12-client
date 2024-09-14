@@ -97,6 +97,64 @@ const DetailsExplore = () => {
             })
     }
 
+    // report survey
+
+    const reportedUserData = {
+        name: user?.displayName,
+        email: user?.email,
+    }
+
+    const handelReport = () => {
+        Swal.fire({
+            title: "you want to report this survey?",
+            text: "If you report this survey , it can be unpublished on your opinion . be carefull before reporting",
+            // icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Continue"
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                fetch(`http://localhost:5000/report/${_id}`, {
+                    method: "PUT",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(reportedUserData)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data)
+                        if (data.modifiedCount) {
+                            Swal.fire({
+                                position: "top-end",
+                                icon: "success",
+                                title: "Reported Successfully",
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                            // refetch();
+                        }
+
+                        if (data.message === 'You have already reported this survey.') {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Oops...",
+                                text: "You have already reported this survey!!",
+                                // footer: '<a href="#">Why do I have this issue?</a>'
+                            });
+                        }
+
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
+
+            }
+        });
+    }
+
 
 
 
@@ -206,7 +264,7 @@ const DetailsExplore = () => {
 
                 <div className="card-actions justify-between my-10">
                     <div className="tooltip" data-tip="Only user can participale">
-                        <button disabled={dbUserRole !== 'user'}
+                        <button disabled={dbUserRole !== 'user' && dbUserRole !== "proUser"}
                             className="btn btn-ghost bg-black text-white font-semibold text-lg"
                             // onClick={() => document.getElementById('my_modal_1').showModal()}
                             onClick={() => { handelOpenModal(_id) }}
@@ -214,7 +272,10 @@ const DetailsExplore = () => {
                         </button>
                     </div>
 
-                    <button className="btn">Report</button>
+                    <button disabled={dbUserRole !== 'user' && dbUserRole !== "proUser"}
+                        className="btn"
+                        onClick={() => handelReport()}
+                    >Report</button>
                 </div>
 
                 {
