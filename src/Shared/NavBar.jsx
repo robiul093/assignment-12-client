@@ -23,7 +23,7 @@ const NavBar = () => {
         <li><Link to={"/allSurvey"}>Surveys</Link></li>
         <li><Link to={"/surveyDetails"}>Survey Details</Link></li>
         <li><Link to={"/payment"}>Be a Pro user <FaCrown className="text-yellow-500 text-3xl" /> </Link></li>
-        <li><Link to={"dashbord"}>Dashbord</Link></li>
+        <li><Link to={"dashboard"}>Dashbord</Link></li>
 
     </div>
 

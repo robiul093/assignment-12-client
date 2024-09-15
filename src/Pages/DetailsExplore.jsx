@@ -316,7 +316,7 @@ const DetailsExplore = () => {
                 </div>
 
                 <div className="card-actions justify-between my-10">
-                    <div className="tooltip" data-tip="Only user can participale">
+                    <div className="tooltip" data-tip="Only user proUser can participale">
                         <button disabled={dbUserRole !== 'user' && dbUserRole !== "proUser"}
                             className="btn btn-ghost bg-black text-white font-semibold text-lg"
                             // onClick={() => document.getElementById('my_modal_1').showModal()}

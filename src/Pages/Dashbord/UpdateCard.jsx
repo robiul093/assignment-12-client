@@ -17,7 +17,7 @@ const UpdateCard = ({item}) => {
                 <p>Category : {category}</p>
                 <p>Deadline : {deadline}</p>
                 <div className="card-actions justify-end">
-                    <Link to={`/dashbord/surveyor/updateForm/${_id}`} className="btn btn-primary">Update</Link>
+                    <Link to={`/dashboard/surveyor/update/${_id}`} className="btn btn-primary">Update</Link>
                 </div>
             </div>
         </div>

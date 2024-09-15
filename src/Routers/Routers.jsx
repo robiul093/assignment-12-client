@@ -13,86 +13,104 @@ import SurveyDetails from "../Pages/SurveyDetails";
 import ManageSurveyStatus from "../Pages/Dashbord/ManageSurveyStatus";
 import DetailsExplore from "../Pages/DetailsExplore";
 import Payment from "../Pages/Payment";
+import Profile from "../Pages/Dashbord/Profile";
+import AdminRoute from "../PrivateRoute/AdminRoute";
+import SurveyorRoute from "../PrivateRoute/SurveyorRoute";
 
 
 export const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Main></Main>,
-      children: [
-        
-        {
-            path: "/",
-            element: <Home></Home>
-        },
-        {
-          path: "/allSurvey",
-          element: <AllSurvey></AllSurvey>
-        },
-        {
-          path: "/surveyDetails",
-          element: <SurveyDetails></SurveyDetails>
-        },
-        {
-          path: "/surveyDetailsExplore/:id",
-          element: <DetailsExplore></DetailsExplore>
-        },
-        {
-          path: "/payment",
-          element: <Payment></Payment>,
-        },
-        {
-            path: "/login",
-            element: <Login></Login>
-        },
-        {
-          path: "/signUp",
-          element: <SignUp></SignUp>
-        }
-      ]
-    },
+  {
+    path: "/",
+    element: <Main></Main>,
+    children: [
 
-    {
-      path: "dashbord",
-      element: <Dashbord></Dashbord>,
-      children: [
+      {
+        path: "/",
+        element: <Home></Home>
+      },
+      {
+        path: "/allSurvey",
+        element: <AllSurvey></AllSurvey>
+      },
+      {
+        path: "/surveyDetails",
+        element: <SurveyDetails></SurveyDetails>
+      },
+      {
+        path: "/surveyDetailsExplore/:id",
+        element: <DetailsExplore></DetailsExplore>
+      },
+      {
+        path: "/payment",
+        element: <Payment></Payment>,
+      },
+      {
+        path: "/login",
+        element: <Login></Login>
+      },
+      {
+        path: "/signUp",
+        element: <SignUp></SignUp>
+      }
+    ]
+  },
 
-        // admin routs
-        
-        {
-          path: "admin/users",
-          element: <ManageUsers></ManageUsers>
-        },
-        
-        {
-          path: "admin/users/surveys",
-          element: <ManageSurveyStatus></ManageSurveyStatus>
-        },
-        
-        // surveyor routes
-        {
-          path: "createSurvey",
-          element: <CreateSurvey></CreateSurvey>
-        },
-        {
-          path: "surveyUpdate",
-          element: <SurveyUpdate></SurveyUpdate>,
-        },
-        {
-          path: "surveyor/updateForm/:id",
-          element: <UpdateForm></UpdateForm>,
-        }
-      ]
-    }
-  ]);
+  {
+    path: "dashboard",
+    element: <Dashbord></Dashbord>,
+    children: [
+
+      {
+        path: "/dashboard",
+        element: <Profile></Profile>
+      },
+
+      // admin routs
+
+      {
+        path: "admin/users",
+        element: <AdminRoute>
+                    <ManageUsers></ManageUsers>
+                </AdminRoute>,
+      },
+
+      {
+        path: "admin/surveys",
+        element: <AdminRoute>
+                    <ManageSurveyStatus></ManageSurveyStatus>
+                </AdminRoute>
+      },
+
+      // surveyor routes
+      {
+        path: "surveyor/create",
+        element: <SurveyorRoute>
+                      <CreateSurvey></CreateSurvey>
+                  </SurveyorRoute>
+      },
+      {
+        path: "surveyUpdate",
+        element: <SurveyorRoute>
+                      <SurveyUpdate></SurveyUpdate>,
+        </SurveyorRoute>
+      },
+      {
+        path: "surveyor/update/:id",
+        element: <SurveyorRoute>
+                    <UpdateForm></UpdateForm>
+        </SurveyorRoute>
+      }
+    ]
+  }
+]);
 
 
 const Routers = () => {
-    return (
-        <div>
-                        
-        </div>
-    );
+  return (
+    <div>
+
+    </div>
+  );
 };
 
 export default Routers;
