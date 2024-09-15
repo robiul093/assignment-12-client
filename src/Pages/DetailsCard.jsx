@@ -37,19 +37,19 @@ const DetailsCard = ({ item }) => {
 
         let answers = {};
         let total = 0;
-      
+
         // Loop through the form data
         formData.forEach((value, key) => {
-          // Store each answer in the `answers` object
-          answers[key] = value;
-          total++;
+            // Store each answer in the `answers` object
+            answers[key] = value;
+            total++;
         });
-      
+
         const result = { ...answers, total };
         console.log(result);
-        
-        
-        
+
+
+
         // const question1Ans = form.question1.value;
         // const question2Ans = form.question2.value;
         // const question3Ans = form.question3.value;
@@ -57,7 +57,7 @@ const DetailsCard = ({ item }) => {
         // const answer = { question1Ans, question2Ans, question3Ans,  total }
         // console.log(_id, question1Ans, question2Ans, question3Ans, answer);
 
-        fetch(`http://localhost:5000/surveyAnswer/${_id}`, {
+        fetch(`https://assignment-12-server-lemon-delta.vercel.app/surveyAnswer/${_id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -122,58 +122,9 @@ const DetailsCard = ({ item }) => {
                         onClick={() => { handelOpenModal(_id) }}
                     >Participate in Surveys
                     </button> */}
-                    
+
                     <Link to={`/surveyDetailsExplore/${_id}`} className="btn btn-ghost bg-black text-white font-semibold text-lg">Explore More</Link>
                 </div>
-
-                {
-                    // activeItemId == _id && (
-                    //     <dialog id="my_modal_1" className="modal" open>
-                    //         <div className="modal-box">
-                    //             {/* <h3 className="font-bold text-lg">Hello!</h3>
-                    //     <p className="py-4">Press ESC key or click the button below to close</p> */}
-                    //             <form onSubmit={handelSubmit} method="dialog">
-                    //                 <div>
-                    //                     <h3 className="font-bold text-lg">Question 1: {question?.question_1?.question1} </h3>
-                    //                     <input type="radio" id="q1_yes" name="question1" value="yes" required />
-                    //                     <label htmlFor="q1_yes">Yes</label><br />
-
-                    //                     <input type="radio" id="q1_no" name="question1" value="no" required />
-                    //                     <label htmlFor="q1_no">No</label><br />
-                    //                 </div>
-
-                    //                 <div>
-                    //                     <h3 className="font-bold text-lg">Question 2: {question?.question_2?.question2} </h3>
-                    //                     <input type="radio" id="q2_yes" name="question2" value="yes" required />
-                    //                     <label htmlFor="q2_yes">Yes</label><br />
-
-                    //                     <input type="radio" id="q2_no" name="question2" value="no" required />
-                    //                     <label htmlFor="q2_no">No</label><br />
-                    //                 </div>
-
-                    //                 <div>
-                    //                     <h3 className="font-bold text-lg">Question 3: {question?.question_3?.question3} </h3>
-                    //                     <input type="radio" id="q3_yes" name="question3" value="yes" required />
-                    //                     <label htmlFor="q3_yes">Yes</label><br />
-
-                    //                     <input type="radio" id="q3_no" name="question3" value="no" required />
-                    //                     <label htmlFor="q3_no">No</label><br />
-                    //                 </div>
-
-                    //                 <div className="modal-action">
-                    //                     <button className="btn" type="submit">Submit</button>
-                    //                     <button className="btn" type="button"
-                    //                         // onClick={() => document.getElementById('my_modal_1').close()}
-                    //                         onClick={() => {
-                    //                             handelCloseModal()
-                    //                         }}
-                    //                     >Close</button>
-                    //                 </div>
-                    //             </form>
-                    //         </div>
-                    //     </dialog>
-                    // )
-                }
 
             </div>
         </div>

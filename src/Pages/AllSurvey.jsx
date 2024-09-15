@@ -11,7 +11,7 @@ const AllSurvey = () => {
     const { isPending, refetch, data } = useQuery({
         queryKey: ['survey'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/survey');
+            const res = await fetch('https://assignment-12-server-lemon-delta.vercel.app/survey');
             return res.json();
         }
     })

@@ -1,15 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
 import UpdateCard from "./UpdateCard";
+import { useContext } from "react";
+import { AuthContext } from "../../Provider/AuthProvider";
 
 const SurveyUpdate = () => {
 
-    const { isPending, data: survey } = useQuery({
+    const {user} = useContext(AuthContext);
+    const { isPending, data } = useQuery({
         queryKey: ['survey'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/survey');
+            const res = await fetch('https://assignment-12-server-lemon-delta.vercel.app/survey');
             return res.json();
         }
     })
+
 
     if (isPending) {
         return <div className="h-full flex justify-center items-center">
@@ -18,6 +22,13 @@ const SurveyUpdate = () => {
             <span className="loading loading-bars loading-lg"></span>
         </div>
     }
+    
+    
+    const survey = data?.filter(item => item?.userEmail === user?.email)
+    console.log(survey);
+    
+
+   
 
     return (
         <div>

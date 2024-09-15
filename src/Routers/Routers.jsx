@@ -16,6 +16,9 @@ import Payment from "../Pages/Payment";
 import Profile from "../Pages/Dashbord/Profile";
 import AdminRoute from "../PrivateRoute/AdminRoute";
 import SurveyorRoute from "../PrivateRoute/SurveyorRoute";
+import AdminPayment from "../Pages/Dashbord/AdminPayment";
+import MySurvey from "../Pages/Dashbord/MySurvey";
+import SurveyFeedback from "../Pages/Dashbord/SurveyFeedback";
 
 
 export const router = createBrowserRouter([
@@ -80,6 +83,12 @@ export const router = createBrowserRouter([
                     <ManageSurveyStatus></ManageSurveyStatus>
                 </AdminRoute>
       },
+      {
+        path: "admin/payments",
+        element: <AdminRoute>
+                    <AdminPayment></AdminPayment>
+                </AdminRoute>
+      },
 
       // surveyor routes
       {
@@ -99,7 +108,19 @@ export const router = createBrowserRouter([
         element: <SurveyorRoute>
                     <UpdateForm></UpdateForm>
         </SurveyorRoute>
-      }
+      },
+      {
+        path: "surveyor/surveys",
+        element: <SurveyorRoute>
+          <MySurvey></MySurvey>
+        </SurveyorRoute>
+      },
+      {
+        path: "surveyor/feedbacks",
+        element: <SurveyorRoute>
+            <SurveyFeedback></SurveyFeedback>
+        </SurveyorRoute>
+      },
     ]
   }
 ]);

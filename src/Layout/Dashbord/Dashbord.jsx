@@ -64,6 +64,10 @@ const Dashbord = () => {
                             </li>
 
                             <li className="bg-gray-400 mb-5">
+                                <NavLink to='/dashboard/surveyor/surveys'>My Survey</NavLink>
+                            </li>
+                            
+                            <li className="bg-gray-400 mb-5">
                                 <NavLink to='/dashboard/surveyor/feedbacks'>Feedback</NavLink>
                             </li>
 

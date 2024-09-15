@@ -77,7 +77,7 @@ const CreateSurvey = () => {
 
         console.log(surveyData);
         
-        fetch('http://localhost:5000/createSurvey',{
+        fetch('https://assignment-12-server-lemon-delta.vercel.app/createSurvey',{
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
