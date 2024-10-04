@@ -39,7 +39,100 @@ const Login = () => {
                     email: res.user.email,
                     role: 'user',
                 }
-                fetch('https://assignment-12-server-lemon-delta.vercel.app/users', {
+                fetch('http://localhost:5000/users', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(userInfo),
+                })
+                    .then(res => res.json())
+                    .then(res => {
+                        console.log('Response from server:', res);
+                        // fetch('http://localhost:5000/jwt', {
+                        //     method: 'POST',
+                        //     headers: {
+                        //         'Content-Type': 'application/json',
+                        //     }
+                        // })
+                        //     .then(res => res.json())
+                        //     .then(data => {
+                        //         console.log(data)
+                        //     })
+
+                    })
+                navigate('/')
+            })
+            .catch(err => {
+                console.log(err);
+            })
+
+    }
+
+
+    const handelGoogleLogin = () => {
+        googleLogin()
+            .then(res => {
+                console.log(res.user);
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "User Login Successful",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                const userInfo = {
+                    name: res.user.displayName,
+                    email: res.user.email,
+                    role: 'user',
+                }
+                fetch('http://localhost:5000/users', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(userInfo),
+                })
+                    .then(res => res.json())
+                    .then(res => {
+                        console.log('Response from server:', res);
+                        fetch('http://localhost:5000/jwt', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            }
+                        })
+                            .then(res => res.json())
+                            .then(data => {
+                                console.log(data)
+                            })
+
+                    })
+                navigate('/')
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+
+
+    const handelGitHubLogin = () => {
+        gitHubLogin()
+            .then(res => {
+                console.log(res.user);
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "User Login Successful",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                const userInfo = {
+                    name: res.user.displayName,
+                    email: res.user.email,
+                    role: 'user',
+                }
+                fetch('http://localhost:5000/users', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -56,81 +149,8 @@ const Login = () => {
             .catch(err => {
                 console.log(err);
             })
-
     }
 
-
-    const handelGoogleLogin = () =>{
-        googleLogin()
-        .then(res =>{
-            console.log(res.user);
-            Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "User Login Successful",
-                showConfirmButton: false,
-                timer: 1500
-            });
-            const userInfo = {
-                name: res.user.displayName,
-                email: res.user.email,
-                role: 'user',
-            }
-            fetch('https://assignment-12-server-lemon-delta.vercel.app/users', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(userInfo),
-            })
-                .then(res => res.json())
-                .then(res => {
-                    console.log('Response from server:', res);
-
-                })
-            navigate('/')
-        })
-        .catch(err =>{
-            console.log(err);
-        })
-    }
-
-
-    const handelGitHubLogin = () =>{
-        gitHubLogin()
-        .then(res =>{
-            console.log(res.user);
-                Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: "User Login Successful",
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-                const userInfo = {
-                    name: res.user.displayName,
-                    email: res.user.email,
-                    role: 'user',
-                }
-                fetch('https://assignment-12-server-lemon-delta.vercel.app/users', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(userInfo),
-                })
-                    .then(res => res.json())
-                    .then(res => {
-                        console.log('Response from server:', res);
-
-                    })
-                navigate('/')
-        })
-        .catch(err =>{
-            console.log(err);
-        })
-    }
-    
 
     return (
         <div className="mt-10 card shrink-0 md:w-2/3 mx-auto shadow-2xl bg-base-100">

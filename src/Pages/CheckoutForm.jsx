@@ -40,7 +40,7 @@ const CheckoutForm = () => {
 
 
     useEffect(() => {
-        fetch("https://assignment-12-server-lemon-delta.vercel.app/create-payment-intent", {
+        fetch("http://localhost:5000/create-payment-intent", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ price: 10 })
@@ -119,7 +119,7 @@ const CheckoutForm = () => {
                     role: 'proUser'
                 }
 
-                fetch('https://assignment-12-server-lemon-delta.vercel.app/proUserInfo', {
+                fetch('http://localhost:5000/proUserInfo', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -130,7 +130,7 @@ const CheckoutForm = () => {
                     .then(data => {
                         console.log(data)
                         if (data.insertedId) {
-                            fetch(`https://assignment-12-server-lemon-delta.vercel.app/userRole/${user?.email}`, {
+                            fetch(`http://localhost:5000/userRole/${user?.email}`, {
                                 method: 'PUT',
                                 headers: {
                                     'Content-Type': 'application/json',

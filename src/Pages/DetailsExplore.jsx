@@ -87,7 +87,7 @@ const DetailsExplore = () => {
 
 
 
-        fetch(`https://assignment-12-server-lemon-delta.vercel.app/surveyAnswer/${_id}`, {
+        fetch(`http://localhost:5000/surveyAnswer/${_id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -131,7 +131,7 @@ const DetailsExplore = () => {
         }).then((result) => {
             if (result.isConfirmed) {
 
-                fetch(`https://assignment-12-server-lemon-delta.vercel.app/report/${_id}`, {
+                fetch(`http://localhost:5000/report/${_id}`, {
                     method: "PUT",
                     headers: {
                         'Content-Type': 'application/json'
@@ -183,7 +183,7 @@ const DetailsExplore = () => {
         const data = { ...userData, userComment }
         console.log(userComment, data);
 
-        fetch(`https://assignment-12-server-lemon-delta.vercel.app/comment/${_id}`, {
+        fetch(`http://localhost:5000/comment/${_id}`, {
             method: "PUT",
             headers: {
                 'Content-Type': 'application/json',

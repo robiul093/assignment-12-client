@@ -5,7 +5,7 @@ const AdminPayment = () => {
     const { data } = useQuery({
         queryKey: ['survey'],
         queryFn: async () => {
-            const res = await fetch('https://assignment-12-server-lemon-delta.vercel.app/allPayment');
+            const res = await fetch('http://localhost:5000/allPayment');
             return res.json();
         }
     })

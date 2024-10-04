@@ -25,7 +25,7 @@ const ManageSurveyStatus = () => {
         e.preventDefault();
         console.log(feedback);
 
-        fetch(`https://assignment-12-server-lemon-delta.vercel.app/surveyStatus/${activeItemId}`, {
+        fetch(`http://localhost:5000/surveyStatus/${activeItemId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

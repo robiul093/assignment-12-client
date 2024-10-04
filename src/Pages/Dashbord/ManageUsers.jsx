@@ -8,7 +8,7 @@ const ManageUsers = () => {
     // const [allUsers, setAllUsers] = useState();
 
     // useEffect(() =>{
-    //     fetch('https://assignment-12-server-lemon-delta.vercel.app/allUsers')
+    //     fetch('http://localhost:5000/allUsers')
     //     .then(res => res.json())
     //     .then(data => {
     //         console.log(data);
@@ -26,7 +26,7 @@ const ManageUsers = () => {
     // const { isPending, refetch, data: allUsers } = useQuery({
     //     queryKey: ['survey'],
     //     queryFn: async () => {
-    //         const res = await fetch('https://assignment-12-server-lemon-delta.vercel.app/allUsers');
+    //         const res = await fetch('http://localhost:5000/allUsers');
     //         return res.json();
     //     }
     // })
@@ -51,7 +51,7 @@ const ManageUsers = () => {
             role: userRole
         }
         console.log(userRole, email, updateData);
-        fetch(`https://assignment-12-server-lemon-delta.vercel.app/userRole/${email}`, {
+        fetch(`http://localhost:5000/userRole/${email}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -92,7 +92,7 @@ const ManageUsers = () => {
           }).then((result) => {
             if (result.isConfirmed) {
 
-                fetch(`https://assignment-12-server-lemon-delta.vercel.app/deletUser/${id}`, {
+                fetch(`http://localhost:5000/deletUser/${id}`, {
                     method: 'DELETE',
                     header: {
                         'Content-Type': 'application/json',
@@ -118,7 +118,7 @@ const ManageUsers = () => {
             }
           });
         
-        // fetch(`https://assignment-12-server-lemon-delta.vercel.app/deletUser/${id}`, {
+        // fetch(`http://localhost:5000/deletUser/${id}`, {
         //     method: 'DELETE',
         //     header: {
         //         'Content-Type': 'application/json',

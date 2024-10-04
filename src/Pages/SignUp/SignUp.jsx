@@ -37,7 +37,7 @@ const SignUp = () => {
                     email: email,
                     role: 'user',
                 }
-                fetch('https://assignment-12-server-lemon-delta.vercel.app/users', {
+                fetch('http://localhost:5000/users', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -83,7 +83,7 @@ const SignUp = () => {
                     email: res.user.email,
                     role: 'user',
                 }
-                fetch('https://assignment-12-server-lemon-delta.vercel.app/users', {
+                fetch('http://localhost:5000/users', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -120,7 +120,7 @@ const SignUp = () => {
                     email: res.user.email,
                     role: 'user',
                 }
-                fetch('https://assignment-12-server-lemon-delta.vercel.app/users', {
+                fetch('http://localhost:5000/users', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

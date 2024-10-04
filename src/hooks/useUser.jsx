@@ -4,7 +4,7 @@ const useUser = () => {
     return useQuery({
         queryKey: ['user'],
         queryFn: async () =>{
-            const res = await fetch('https://assignment-12-server-lemon-delta.vercel.app/allUsers');
+            const res = await fetch('http://localhost:5000/allUsers');
             return res.json();
         }
     })

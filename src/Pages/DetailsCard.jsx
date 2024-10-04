@@ -57,7 +57,7 @@ const DetailsCard = ({ item }) => {
         // const answer = { question1Ans, question2Ans, question3Ans,  total }
         // console.log(_id, question1Ans, question2Ans, question3Ans, answer);
 
-        fetch(`https://assignment-12-server-lemon-delta.vercel.app/surveyAnswer/${_id}`, {
+        fetch(`http://localhost:5000/surveyAnswer/${_id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
