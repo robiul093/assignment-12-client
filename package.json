@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.6.0",
+    "@smastrom/react-rating": "^1.5.0",
     "@stripe/react-stripe-js": "^2.8.0",
     "@stripe/stripe-js": "^4.4.0",
     "@tanstack/react-query": "^5.45.1",
@@ -21,6 +23,7 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.51.5",
     "react-icons": "^5.2.1",
+    "react-rating": "^2.0.5",
     "react-router-dom": "^6.23.1",
     "sort-by": "^1.2.0",
     "sweetalert2": "^11.12.0",

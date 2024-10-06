@@ -5,12 +5,17 @@ import useSurvey from "../hooks/useSurvey";
 import Swal from "sweetalert2";
 import useUser from "../hooks/useUser";
 import { AuthContext } from "../Provider/AuthProvider";
+// import Rating from 'react-rating';
+// import '@fortawesome/fontawesome-free/css/all.css';
+import { Rating } from '@smastrom/react-rating';
+import '@smastrom/react-rating/style.css'
 
 const DetailsExplore = () => {
 
     const [comment, setComment] = useState('');
     const [activeItemId, setActiveItemId] = useState(null);
     const [commentField, setCommentField] = useState(false);
+    const [rating, setRating] = useState(null);
     const { isPending, refetch, data } = useSurvey();
     const { data: dbUser } = useUser();
     const { user } = useContext(AuthContext)
@@ -24,18 +29,18 @@ const DetailsExplore = () => {
 
 
     useEffect(() => {
-        if(dbUserRole === 'proUser'){
+        if (dbUserRole === 'proUser') {
             setCommentField(true)
             console.log('truee');
-            
+
         }
-        else{
+        else {
             setCommentField(false)
             console.log('faalsse');
         }
     }, [dbUserRole])
 
-    console.log(dbUserRole, commentField)
+    // console.log(dbUserRole, commentField)
     // console.log(user, logedUserEmail, dbUser, isExistDb, dbUserRole);
     if (isPending) {
         return (
@@ -210,6 +215,47 @@ const DetailsExplore = () => {
 
 
 
+    // rating on survey
+    const handelRating = (star) => {
+        const data = { ...userData, star }
+        console.log(star, data);
+
+        fetch(`http://localhost:5000/rating/${_id}`, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                if (data.modifiedCount) {
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Rating Added Successfully",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    refetch();
+                }
+                if (data.message === 'You have already reported this survey.') {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "You have already rated this survey!!",
+                        // footer: '<a href="#">Why do I have this issue?</a>'
+                    });
+                }
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+
+
+
 
     return (
         <div className="w-[60%] mx-auto flex flex-col card card-side bg-base-100 shadow-xl p-6 gap-5">
@@ -339,6 +385,25 @@ const DetailsExplore = () => {
                 </div>
 
 
+                {/* rating the survey */}
+                <div className="flex-col">
+                    <h2 className="text-2xl">How do you rate this survey?</h2>
+                    <div className="flex gap-0 mt-3">
+                        <Rating
+                            className='flex-start mx-auto mb-5'
+                            style={{ maxWidth: 250 }}
+                            emptySymbol="fa fa-star-o fa-2x"
+                            fullSymbol="fa fa-star fa-2x"
+                            initialRating={rating}
+                            value={rating}
+                            onChange={(rate) => setRating(rate)}
+                        />
+
+                        <button onClick={() => handelRating(rating)} className="btn bg-yellow-600  text-white">submit</button>
+                    </div>
+                </div>
+
+
                 {/* comment section */}
 
                 <div className="my-5">
@@ -353,6 +418,10 @@ const DetailsExplore = () => {
                         </div>)
                     }
                 </div>
+
+
+
+
 
 
                 {

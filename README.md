@@ -18,6 +18,7 @@ SurveyHub supports multiple user roles with specific permissions:
 2. **Distribute Your Survey**: Share the survey link or embed it on your website.
 3. **Analyze Responses**: Access real-time response data and export for analysis.
 4. **Payments**: Optionally, accept payments via Stripe for premium surveys.
+5. **Rating**: User can add rating on the survey.
 
 ## Technologies Used
 - **React**: Frontend framework for building the user interface.
