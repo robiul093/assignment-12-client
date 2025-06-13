@@ -1,20 +1,28 @@
 import { useQuery } from "@tanstack/react-query";
 import AllSurveyCard from "./AllSurveyCard";
 import { useEffect, useState } from "react";
+import useAxiosPublic from "../hooks/useAxiosPublic";
+import useSurvey from "../hooks/useSurvey";
 
 const AllSurvey = () => {
 
     const [survey, setSurvey] = useState();
     const [displaySurvey, setDisplaySurvey] = useState();
-    // const [sortSurvey, setSortSu/rvey] = useState();
+    const [asc, setAsc] = useState(true);
 
-    const { isPending, refetch, data } = useQuery({
+    const axiosPublic = useAxiosPublic();
+    console.log(asc)
+    const { isPending, data } = useQuery({
         queryKey: ['survey'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/survey');
-            return res.json();
+            const res = await axiosPublic.get(`/survey?sort=${asc ? 'asc' : 'dsc'}`)
+            return res.data
+            // const res = await fetch('http://localhost:5000/survey');
+            // return res.json();
         }
     })
+
+    // const {isPending, data} =  useSurvey();
 
     useEffect(() => {
         setSurvey(data)
@@ -99,11 +107,13 @@ const AllSurvey = () => {
                 <div className="flex items-center gap-3">
                     <p className="font-medium">Sort by vote :</p>
                     <div className="dropdown dropdown-hover z-10">
-                        <div tabIndex={0} role="button" className="btn m-1">Sort </div>
-                        <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-10 w-52 p-2 shadow">
+                        <div onClick={() => setAsc(!asc)} tabIndex={0} role="button" className="btn m-1">
+
+                            {asc ? 'Hign to Low' : 'Low to High'} </div>
+                        {/* <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-10 w-52 p-2 shadow">
                             <li><a onClick={handelLowToHighSort}>Low-High</a></li>
                             <li><a onClick={handelHighToLowSort}>High-Low</a></li>
-                        </ul>
+                        </ul> */}
                     </div>
                 </div>
             </div>

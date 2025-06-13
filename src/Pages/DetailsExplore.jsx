@@ -27,6 +27,10 @@ const DetailsExplore = () => {
     const isExistDb = dbUser?.find(item => item.email === logedUserEmail);
     const dbUserRole = isExistDb?.role
 
+    const logedUserRating = survey?.rating?.find(item => item.email == logedUserEmail)
+    const userRating = logedUserRating?.star
+
+    console.log(logedUserRating, userRating)
 
     useEffect(() => {
         if (dbUserRole === 'proUser') {
@@ -395,7 +399,7 @@ const DetailsExplore = () => {
                             emptySymbol="fa fa-star-o fa-2x"
                             fullSymbol="fa fa-star fa-2x"
                             initialRating={rating}
-                            value={rating}
+                            value={userRating || rating}
                             onChange={(rate) => setRating(rate)}
                         />
 
